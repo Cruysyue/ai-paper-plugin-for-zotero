@@ -1,0 +1,126 @@
+<vbox id="aip-pref-root" onload="window.AIPaperPreferences.init()" onunload="window.AIPaperPreferences.destroy()">
+  <html:section class="aip-pref-section aip-pref-api">
+    <html:h2>API 配置</html:h2>
+    <html:div class="aip-pref-api-modes" role="group" aria-label="API 配置方式">
+      <html:button id="aip-pref-directMode" type="button" aria-pressed="true" aria-controls="aip-pref-directPanel">直接配置</html:button>
+      <html:button id="aip-pref-magpieMode" type="button" aria-pressed="false" aria-controls="aip-pref-magpiePanel">通过 Magpie 配置</html:button>
+    </html:div>
+    <html:div id="aip-pref-directPanel">
+      <html:p class="aip-pref-help">填写 OpenAI 兼容服务的 API 地址和密钥，点击获取模型列表后选择模型。</html:p>
+      <html:div class="aip-pref-field-row">
+        <html:label for="aip-pref-baseURL">Base URL / 完整接口地址</html:label>
+        <html:input id="aip-pref-baseURL" type="url" placeholder="https://api.openai.com/v1" spellcheck="false"/>
+      </html:div>
+      <html:p class="aip-pref-help">可以填写以 /v1 结尾的 Base URL，或完整的 /chat/completions 地址。</html:p>
+      <html:div class="aip-pref-field-row aip-pref-key">
+        <html:label for="aip-pref-apiKey">API Key</html:label>
+        <html:input id="aip-pref-apiKey" type="password" autocomplete="off" placeholder="本地免鉴权服务可留空"/>
+        <html:button id="aip-pref-showKey" type="button" aria-label="显示或隐藏 API Key">显示</html:button>
+      </html:div>
+      <html:div class="aip-pref-field-row">
+        <html:label for="aip-pref-model">默认模型</html:label>
+        <html:select id="aip-pref-model" aria-label="选择默认模型"></html:select>
+        <html:button id="aip-pref-fetchModels" type="button">获取模型列表</html:button>
+      </html:div>
+      <html:div class="aip-pref-grid">
+        <html:div class="aip-pref-field-row" data-field-pair="limits">
+          <html:label for="aip-pref-contextChars">论文字符上限</html:label>
+          <html:input id="aip-pref-contextChars" type="number" min="1000" max="500000" step="1000"/>
+        </html:div>
+        <html:div class="aip-pref-field-row" data-field-pair="output">
+          <html:label for="aip-pref-timeoutSeconds">请求超时（秒）</html:label>
+          <html:input id="aip-pref-timeoutSeconds" type="number" min="5" max="600" step="1"/>
+        </html:div>
+        <html:div class="aip-pref-field-row" data-field-pair="limits">
+          <html:label for="aip-pref-maxTokens">输出 token 上限</html:label>
+          <html:input id="aip-pref-maxTokens" type="number" min="1" max="128000" step="1"/>
+        </html:div>
+        <html:div class="aip-pref-field-row" data-field-pair="output">
+          <html:label for="aip-pref-tokenParameter">输出长度参数</html:label>
+          <html:select id="aip-pref-tokenParameter">
+            <html:option value="max_tokens">max_tokens</html:option>
+            <html:option value="max_completion_tokens">max_completion_tokens</html:option>
+            <html:option value="none">使用服务端默认值</html:option>
+          </html:select>
+        </html:div>
+      </html:div>
+      <html:div class="aip-pref-field-row aip-pref-temperature-row">
+        <html:label for="aip-pref-temperature">Temperature（留空使用服务端默认值）</html:label>
+        <html:input id="aip-pref-temperature" type="number" min="0" max="2" step="0.1"/>
+      </html:div>
+      <html:p class="aip-pref-help">长论文超过字符上限时保留开头和结尾，侧栏会显示节选范围。推理模型可选择 max_completion_tokens，并将 Temperature 留空。</html:p>
+      <html:div class="aip-pref-actions">
+        <html:button id="aip-pref-saveAPI" type="button" class="aip-pref-primary">保存 API 配置</html:button>
+        <html:button id="aip-pref-testAPI" type="button">测试连接</html:button>
+      </html:div>
+    </html:div>
+    <html:div id="aip-pref-magpiePanel" hidden="hidden">
+      <html:div class="aip-pref-actions">
+        <html:button id="aip-pref-importMagpie" type="button" class="aip-pref-primary">从 Magpie 导入</html:button>
+      </html:div>
+      <html:table id="aip-pref-magpieCatalog" aria-label="Magpie 模型列表" hidden="hidden"></html:table>
+    </html:div>
+    <html:p class="aip-pref-status" id="aip-pref-apiStatus" role="status" aria-live="polite"></html:p>
+  </html:section>
+
+  <html:section class="aip-pref-section aip-pref-reading">
+    <html:h2>论文问答</html:h2>
+    <html:div class="aip-pref-grid">
+      <html:div class="aip-pref-field-row" data-field-pair="reading">
+        <html:label for="aip-pref-readingMode">论文内容范围</html:label>
+        <html:select id="aip-pref-readingMode">
+          <html:option value="auto">优先 PDF，缺少时使用摘要</html:option>
+          <html:option value="fulltext">仅 PDF 全文</html:option>
+          <html:option value="abstract">仅条目摘要</html:option>
+        </html:select>
+      </html:div>
+      <html:div class="aip-pref-field-row" data-field-pair="reading">
+        <html:label for="aip-pref-historyChars">历史上下文字符上限</html:label>
+        <html:input id="aip-pref-historyChars" type="number" min="1000" max="200000" step="1000"/>
+      </html:div>
+    </html:div>
+    <html:p class="aip-pref-help">继续对话时会携带最近的完整问答。此上限控制每次请求中的历史文本量，完整会话保存在本地历史记录中。</html:p>
+    <html:div class="aip-pref-actions">
+      <html:button id="aip-pref-saveReading" type="button" class="aip-pref-primary">保存问答设置</html:button>
+    </html:div>
+    <html:p class="aip-pref-status" id="aip-pref-readingStatus" role="status" aria-live="polite"></html:p>
+  </html:section>
+
+  <html:section class="aip-pref-section aip-pref-skill">
+    <html:h2>Skill</html:h2>
+    <html:p class="aip-pref-help">Skill 规定论文问答的阅读侧重点与回答风格。侧栏使用这里设置的默认 Skill。可导入 Markdown、TXT、JSON 或 SKILL.md 文件。</html:p>
+    <html:div class="aip-pref-skill-layout">
+      <html:div class="aip-pref-field-row aip-pref-skill-row">
+        <html:label for="aip-pref-skill">选择 Skill</html:label>
+        <html:select id="aip-pref-skill"></html:select>
+        <html:div class="aip-pref-skill-actions" role="group" aria-label="Skill 操作">
+          <html:button id="aip-pref-newSkill" type="button" aria-label="新建 Skill">新建</html:button>
+          <html:button id="aip-pref-importSkill" type="button" aria-label="导入 Skill">导入</html:button>
+          <html:button id="aip-pref-deleteSkill" type="button" aria-label="删除 Skill">删除</html:button>
+        </html:div>
+      </html:div>
+      <html:div class="aip-pref-field-row aip-pref-skill-name">
+        <html:label for="aip-pref-skillName">Skill 名称</html:label>
+        <html:input id="aip-pref-skillName" type="text" maxlength="100"/>
+      </html:div>
+    </html:div>
+    <html:label for="aip-pref-skillPrompt">提示词</html:label>
+    <html:textarea id="aip-pref-skillPrompt" rows="11" maxlength="50000"></html:textarea>
+    <html:label class="aip-pref-checkbox"><html:input id="aip-pref-makeDefault" type="checkbox"/>保存时设为默认 Skill</html:label>
+    <html:div class="aip-pref-actions">
+      <html:button id="aip-pref-saveSkill" type="button" class="aip-pref-primary">保存 Skill</html:button>
+    </html:div>
+    <html:p class="aip-pref-status" id="aip-pref-skillStatus" role="status" aria-live="polite"></html:p>
+  </html:section>
+
+  <html:section class="aip-pref-section">
+    <html:h2>导入与导出</html:h2>
+    <html:p class="aip-pref-help">JSON 可包含 API 配置和 Skill 列表。相同 ID 的 Skill 会更新，其他 Skill 会保留。导入未提供 API Key 时沿用当前密钥。</html:p>
+    <html:div class="aip-pref-actions">
+      <html:button id="aip-pref-importConfig" type="button">导入 API / 插件配置</html:button>
+      <html:button id="aip-pref-exportConfig" type="button">导出配置</html:button>
+    </html:div>
+    <html:p class="aip-pref-help">导出的 JSON 包含 API 地址、模型、参数和 Skill。API Key 单独保存在 Zotero 凭据管理器中，导出文件省略密钥。</html:p>
+    <html:p class="aip-pref-status" id="aip-pref-importStatus" role="status" aria-live="polite"></html:p>
+  </html:section>
+</vbox>

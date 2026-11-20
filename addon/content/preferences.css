@@ -1,0 +1,123 @@
+@import url("native-ui.css?v=1.5.0");
+
+#aip-pref-root { color-scheme: inherit; font: inherit; color: var(--fill-primary, CanvasText); max-width: 760px; }
+#aip-pref-root * { box-sizing: border-box; }
+#aip-pref-root .aip-pref-section { padding: 0 0 12px; margin-bottom: 16px; border-bottom: var(--material-border50, 1px solid ThreeDShadow); }
+#aip-pref-root .aip-pref-section:last-child { border-bottom: 0; }
+#aip-pref-root h2 { font-size: 14px; font-weight: 600; margin: 12px 0 8px; }
+#aip-pref-root label { display: block; margin: 12px 0 5px; font-weight: normal; }
+#aip-pref-root input:not([type="checkbox"]), #aip-pref-root select, #aip-pref-root textarea {
+  appearance: auto; display: block; min-width: 0; min-height: 24px;
+  border: var(--material-border, 1px solid ThreeDShadow); border-radius: 4px; padding: 3px 6px;
+  background: var(--material-background, Field); color: var(--fill-primary, FieldText); font: inherit;
+}
+#aip-pref-root input:not([type="checkbox"]), #aip-pref-root textarea { width: 100%; }
+#aip-pref-root select {
+  --aip-select-padding-start: 6px;
+  --aip-select-padding-end: 20px;
+  appearance: none; flex: 0 1 auto; max-width: 100%; height: 24px; margin: 0;
+  /* Count both field borders after the stylesheet has loaded. */
+  width: calc(var(--aip-field-text-width) + var(--aip-select-padding-start) + var(--aip-select-padding-end) + 2px);
+  padding: 0; padding-inline: var(--aip-select-padding-start) var(--aip-select-padding-end); text-overflow: ellipsis;
+  background-image: url("chrome://zotero/skin/16/universal/chevron-12.svg");
+  background-position: right 5px center; background-size: 11px; background-repeat: no-repeat;
+  fill: var(--fill-secondary, ButtonText); -moz-context-properties: fill;
+}
+#aip-pref-root select:dir(rtl) { background-position: left 5px center; }
+#aip-pref-root select:enabled:hover { background-color: var(--fill-quinary, ButtonFace); }
+#aip-pref-root select:disabled { opacity: .6; }
+#aip-pref-root input::placeholder, #aip-pref-root textarea::placeholder { color: var(--fill-secondary, GrayText); opacity: 1; }
+#aip-pref-root textarea { resize: vertical; line-height: 1.5; padding-block: 6px; }
+#aip-pref-root .aip-pref-key button { min-width: 52px; }
+#aip-pref-root .aip-pref-field-row { display: flex; align-items: center; gap: 8px; min-width: 0; margin-top: 12px; }
+#aip-pref-root .aip-pref-field-row > label { flex: none; margin: 0; white-space: nowrap; }
+#aip-pref-root .aip-pref-field-row > input:not([type="checkbox"]) {
+  flex: 0 1 auto; max-width: 100%; height: 24px; margin: 0; padding-block: 0;
+  width: calc(max(4ch, var(--aip-field-text-width, 0px)) + 14px);
+}
+#aip-pref-root .aip-pref-field-row > input[type="number"] {
+  /* Include the native stepper beside the editable number. */
+  width: calc(max(3ch, var(--aip-field-text-width, 0px)) + 32px);
+}
+#aip-pref-root .aip-pref-key > input[type="password"] {
+  /* Include the native reveal icon and its margins. */
+  width: calc(max(4ch, var(--aip-field-text-width, 0px)) + 1em + 16px);
+}
+#aip-pref-root .aip-pref-temperature-row > label,
+#aip-pref-root .aip-pref-field-row > label[for="aip-pref-baseURL"] {
+  flex-shrink: 1; min-width: 0; white-space: normal; overflow-wrap: anywhere;
+}
+#aip-pref-root :is(.aip-pref-api, .aip-pref-reading, .aip-pref-skill) { container-type: inline-size; }
+#aip-pref-root .aip-pref-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 16px; }
+#aip-pref-root [data-field-pair] > label { flex-basis: var(--aip-pair-label-width, auto); text-align: center; }
+#aip-pref-root [data-field-pair] > :is(input[type="number"], select) {
+  width: calc(max(3ch, var(--aip-pair-text-width, 0px)) + 32px);
+  max-width: calc(100% - var(--aip-pair-label-width, 0px) - 8px);
+}
+#aip-pref-root [data-field-pair="reading"] > label { flex-basis: auto; text-align: start; }
+#aip-pref-root .aip-pref-skill-layout { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+#aip-pref-root .aip-pref-skill-layout > .aip-pref-field-row { margin-top: 0; }
+#aip-pref-root .aip-pref-skill-row { min-width: min(100%, 268px); max-width: 100%; }
+#aip-pref-root .aip-pref-skill-name { min-width: min(100%, 104px); max-width: 100%; margin-inline-start: auto; }
+#aip-pref-root .aip-pref-skill-actions { display: flex; flex: none; flex-wrap: wrap; gap: 6px; max-width: 100%; }
+#aip-pref-root #aip-pref-newSkill { --aip-skill-action-color: color-mix(in srgb, var(--accent-green, #39bf68) 65%, black); }
+#aip-pref-root #aip-pref-importSkill { --aip-skill-action-color: color-mix(in srgb, var(--accent-yellow, #faa700) 60%, black); }
+#aip-pref-root #aip-pref-deleteSkill { --aip-skill-action-color: color-mix(in srgb, var(--accent-red, #db2c3a) 94%, black); }
+#aip-pref-root .aip-pref-skill-actions > button {
+  appearance: none; border-color: transparent; background: var(--aip-skill-action-color); color: white;
+}
+#aip-pref-root .aip-pref-skill-actions > button:enabled:hover {
+  background-color: color-mix(in srgb, var(--aip-skill-action-color) 90%, black);
+}
+#aip-pref-root .aip-pref-skill-actions > button:enabled:active {
+  background-color: color-mix(in srgb, var(--aip-skill-action-color) 80%, black);
+}
+#aip-pref-root .aip-pref-help { color: var(--fill-secondary, GrayText); font-size: 12px; line-height: 1.5; margin: 6px 0; }
+#aip-pref-root .aip-pref-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#aip-pref-root .aip-pref-api-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+#aip-pref-root .aip-pref-api-modes > button[aria-pressed="true"] {
+  appearance: none; border-color: transparent;
+  background: var(--color-accent, Highlight); color: var(--color-accent-text, HighlightText);
+}
+#aip-pref-magpieCatalog {
+  width: 100%; margin-block-start: 12px; table-layout: fixed; border-spacing: 0;
+  border: var(--material-border, 1px solid ThreeDShadow); border-radius: 6px;
+}
+#aip-pref-magpieCatalog :is(th, td) { padding: 0; }
+#aip-pref-magpieCatalog tbody:not([hidden]) ~ tbody:not([hidden]) tr:first-child > :is(th, td) {
+  border-block-start: var(--material-border50, 1px solid ThreeDShadow);
+}
+#aip-pref-magpieCatalog button.aip-pref-magpie-row {
+  appearance: none; display: flex; justify-content: space-between; width: 100%; height: auto;
+  min-height: 28px; border: 0; background: transparent; text-align: start;
+}
+#aip-pref-magpieCatalog button.aip-pref-magpie-row:hover { background: var(--fill-quinary, ButtonFace); }
+#aip-pref-magpieCatalog button.aip-pref-magpie-row:focus-visible { outline-offset: -2px; }
+#aip-pref-magpieCatalog .aip-pref-magpie-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+#aip-pref-magpieCatalog .aip-pref-magpie-provider { font-weight: 600; }
+#aip-pref-magpieCatalog .aip-pref-magpie-provider::after {
+  content: ""; flex: 0 0 12px; width: 12px; height: 12px; transform: rotate(-90deg);
+  background: url("chrome://zotero/skin/16/universal/chevron-12.svg") center / contain no-repeat;
+  fill: var(--fill-secondary, ButtonText); -moz-context-properties: fill;
+}
+#aip-pref-magpieCatalog .aip-pref-magpie-provider[aria-expanded="true"]::after { transform: none; }
+#aip-pref-magpieCatalog button.aip-pref-magpie-model { padding-inline-start: 22px; }
+#aip-pref-magpieCatalog .aip-pref-magpie-model[aria-pressed="false"] { color: var(--fill-secondary, GrayText); }
+#aip-pref-magpieCatalog .aip-pref-magpie-model[aria-pressed="true"]::after {
+  content: "✓"; flex: none; color: var(--color-accent, Highlight); font-weight: 600;
+}
+#aip-pref-root .aip-pref-api [hidden] { display: none !important; }
+#aip-pref-root .aip-pref-checkbox { display: flex; gap: 6px; align-items: center; font-weight: normal; }
+#aip-pref-root .aip-pref-checkbox input { margin: 0; }
+#aip-pref-root .aip-pref-status { white-space: pre-wrap; font-size: 12px; line-height: 1.5; min-height: 1em; margin: 8px 0 0; }
+#aip-pref-root .aip-pref-error { color: var(--color-invalid, var(--accent-red, CanvasText)); }
+@container (max-width: 440px) {
+  #aip-pref-root .aip-pref-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 410px) {
+  #aip-pref-root .aip-pref-skill-layout { display: grid; grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 275px) {
+  #aip-pref-root .aip-pref-skill-row { display: grid; grid-template-columns: max-content minmax(0, 1fr); justify-items: start; }
+  #aip-pref-root .aip-pref-skill-actions { grid-column: 1 / -1; }
+}

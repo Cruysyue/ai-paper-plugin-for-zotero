@@ -1,0 +1,46 @@
+.toolbar > .start > #read-aloud,
+.toolbar > .start > #readingMode {
+  display: none;
+}
+
+/* Keep Zotero's annotation tools and color picker together and leave their DOM order intact. */
+.toolbar > .center.tools {
+  margin-inline-start: auto;
+  margin-inline-end: 8px;
+}
+
+.toolbar > .end > .custom-sections:empty {
+  display: none;
+}
+
+.toolbar .aip-fit-content > svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.selection-popup:is(.aip-selection-popup, :has(.aip-selection-menu)) > :is(.colors, .tool-toggle, .wide-button) {
+  display: none;
+}
+.selection-popup:is(.aip-selection-popup, :has(.aip-selection-menu)) > .custom-sections,
+.selection-popup .custom-sections > .aip-selection-section {
+  padding: 0;
+  border: 0;
+}
+.aip-selection-menu { display: grid; gap: 6px; }
+.aip-selection-menu .color-button[aria-pressed="true"] {
+  outline: 1px solid var(--color-accent, Highlight);
+  outline-offset: -1px;
+  border-radius: 4px;
+}
+.aip-selection-actions {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px;
+}
+.aip-selection-actions > button.toolbar-button {
+  display: flex; justify-content: center; align-items: center; width: 100%; min-width: 0; height: 23px;
+  background: var(--fill-quinary, ButtonFace); color: var(--fill-secondary, ButtonText);
+  border: 1px solid var(--fill-senary, transparent); border-radius: 5px;
+}
+.aip-selection-actions > button.toolbar-button:hover { background: var(--material-button, ButtonFace); }
+.aip-selection-actions > button.toolbar-button:active { background: var(--color-button50, ButtonFace); }
+.aip-selection-actions > button > span { font-size: 15px; line-height: 1; }

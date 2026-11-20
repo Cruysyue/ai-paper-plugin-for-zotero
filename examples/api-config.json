@@ -1,0 +1,9 @@
+{
+  "baseURL": "https://api.example.com/v1",
+  "apiKey": "replace-with-your-api-key",
+  "temperature": "",
+  "maxTokens": 4096,
+  "tokenParameter": "max_tokens",
+  "contextChars": 60000,
+  "timeoutSeconds": 180
+}

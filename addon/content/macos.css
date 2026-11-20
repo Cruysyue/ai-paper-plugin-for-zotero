@@ -1,0 +1,185 @@
+:root.aip-macos {
+  --aip-mac-font: -apple-system, system-ui, sans-serif;
+  --aip-mac-chrome: color-mix(in srgb, var(--material-toolbar, Canvas) 76%, var(--material-sidepane, ButtonFace));
+  --aip-mac-sidebar: color-mix(in srgb, var(--material-sidepane, ButtonFace) 86%, var(--material-background, Canvas));
+  --aip-mac-search: color-mix(in srgb, var(--fill-primary, CanvasText) 5%, var(--material-background, Field));
+  --aip-mac-recess: var(--fill-quinary, ButtonFace);
+  --aip-mac-stroke: color-mix(in srgb, var(--fill-primary, CanvasText) 12%, transparent);
+  --aip-mac-border: 1px solid var(--aip-mac-stroke);
+  --aip-mac-selection: color-mix(in srgb, var(--color-accent, Highlight) 13%, var(--material-background, Canvas));
+  --aip-mac-radius: 11px;
+  --aip-mac-control-radius: 7px;
+  --aip-mac-elevation: 0 1px 2px rgb(0 0 0 / 9%);
+}
+
+@media (prefers-contrast: more) {
+  :root.aip-macos { --aip-mac-stroke: var(--fill-tertiary, GrayText); }
+}
+
+/* Zotero's saved layout, tab widths, sidebar splitters, and window buttons own the geometry. */
+#main-window.aip-macos :is(#zotero-title-bar, #tab-bar-container, #zotero-tabs-toolbar, #zotero-trees) {
+  background-color: var(--aip-mac-chrome);
+  font-family: var(--aip-mac-font);
+}
+#main-window.aip-macos #tab-bar-container .tab { border-radius: var(--aip-mac-control-radius); }
+#main-window.aip-macos #tab-bar-container .tab:not(.selected) { color: var(--fill-secondary, GrayText); }
+#main-window.aip-macos #tab-bar-container .tab:not(.selected):hover { color: var(--fill-primary, CanvasText); }
+#main-window.aip-macos #tab-bar-container .tab.selected {
+  background-color: var(--material-button, ButtonFace);
+  box-shadow: inset 0 0 0 1px var(--aip-mac-stroke), var(--aip-mac-elevation);
+  font-weight: 600;
+}
+#main-window.aip-macos #tab-bar-container .tab-close { border-radius: 50%; }
+
+#main-window.aip-macos #zotero-collections-pane:not([collapsed="true"]) {
+  margin-block: 6px;
+  margin-inline-start: 8px;
+  background-color: var(--aip-mac-sidebar);
+  border-radius: var(--aip-mac-radius);
+  box-shadow: inset 0 0 0 1px var(--aip-mac-stroke);
+}
+#main-window.aip-macos #zotero-toolbar-collection-tree {
+  background-color: transparent;
+  border-start-start-radius: var(--aip-mac-radius);
+  border-start-end-radius: var(--aip-mac-radius);
+}
+#main-window.aip-macos #zotero-collections-tree { background: transparent !important; }
+#main-window.aip-macos #zotero-collections-tree .virtualized-table-body { padding-block-start: 4px; }
+#main-window.aip-macos #zotero-tag-selector-container {
+  border-end-start-radius: var(--aip-mac-radius);
+  border-end-end-radius: var(--aip-mac-radius);
+}
+#main-window.aip-macos #zotero-items-pane-container { background-color: var(--material-background, Canvas); }
+#main-window.aip-macos #zotero-toolbar-item-tree { background-color: var(--aip-mac-chrome); }
+#main-window.aip-macos :is(#zotero-title-bar, #zotero-toolbar-item-tree, #zotero-toolbar-collection-tree) toolbarbutton.zotero-tb-button {
+  border-radius: var(--aip-mac-control-radius);
+}
+#main-window.aip-macos :is(#zotero-tb-search-textbox, #zotero-collections-search) {
+  background-color: var(--aip-mac-search);
+  border: var(--aip-mac-border);
+  border-radius: 8px;
+}
+#main-window.aip-macos #zotero-items-tree .virtualized-table-header {
+  background-color: var(--aip-mac-chrome);
+  border-bottom: var(--aip-mac-border);
+}
+#main-window.aip-macos #zotero-items-tree .virtualized-table-header .cell { font-weight: 600; }
+#main-window.aip-macos :is(#zotero-collections-tree, #zotero-items-tree) .row.first-selected {
+  border-start-start-radius: var(--aip-mac-control-radius);
+  border-start-end-radius: var(--aip-mac-control-radius);
+}
+#main-window.aip-macos :is(#zotero-collections-tree, #zotero-items-tree) .row.last-selected {
+  border-end-start-radius: var(--aip-mac-control-radius);
+  border-end-end-radius: var(--aip-mac-control-radius);
+}
+#main-window.aip-macos :is(#zotero-collections-tree, #zotero-items-tree) .virtualized-table-body
+  .row:hover:not(.selected, .drop, .highlighted, .library-header-row, .spacer-row) {
+  background-color: var(--aip-mac-search);
+}
+
+/* The AI pane shares the same surfaces in the library and the reader. */
+#main-window.aip-macos .aip-chat-host { border-radius: var(--aip-mac-radius) 0 0 0; }
+#main-window.aip-macos .aip-chat .aip-toolbar {
+  background-color: var(--aip-mac-chrome);
+  border-bottom: var(--aip-mac-border);
+}
+#main-window.aip-macos .aip-chat .aip-toolbar-actions {
+  padding-block: 2px;
+  border-radius: 8px;
+  background-color: var(--aip-mac-recess);
+}
+#main-window.aip-macos .aip-chat .aip-toolbar-actions button { border-radius: 6px; }
+#main-window.aip-macos .aip-chat .aip-toolbar-actions button:is(:hover, [aria-pressed="true"]) {
+  background-color: var(--material-button, ButtonFace);
+  box-shadow: var(--aip-mac-elevation);
+}
+#main-window.aip-macos .aip-chat .aip-input-surface {
+  border: var(--aip-mac-border);
+  border-radius: 15px;
+  box-shadow: var(--aip-mac-elevation);
+}
+#main-window.aip-macos .aip-chat .aip-composer { padding: 8px 10px 10px; }
+#main-window.aip-macos .aip-chat .aip-file-chip { border: var(--aip-mac-border); border-radius: 8px; }
+#main-window.aip-macos .aip-chat .aip-image-dialog { border-radius: 14px; }
+#main-window.aip-macos .aip-chat .aip-history-entry {
+  margin-block-end: 6px;
+  padding-inline: 10px;
+  border: var(--aip-mac-border);
+  border-radius: 9px;
+  background-color: var(--material-background, Canvas);
+}
+#main-window.aip-macos .aip-chat .aip-history-entry[aria-current="true"] { background-color: var(--aip-mac-selection); }
+#main-window.aip-macos .aip-chat .aip-history-entry:hover { background-color: var(--aip-mac-search); }
+#main-window.aip-macos .aip-chat .aip-tree-node { border-radius: var(--aip-mac-control-radius); }
+
+/* Reader chrome is in its own document. Reading pages inherit the native reader theme. */
+html.aip-macos :is(.toolbar, #sidebarContainer, .view-popup) { font-family: var(--aip-mac-font); }
+html.aip-macos .toolbar { background-color: var(--aip-mac-chrome); }
+html.aip-macos #sidebarContainer .sidebar-toolbar > .start {
+  padding: 2px;
+  border-radius: 9px;
+  background-color: var(--aip-mac-recess);
+  box-shadow: inset 0 0 0 1px var(--aip-mac-stroke);
+}
+html.aip-macos .toolbar .toolbar-button { border-radius: var(--aip-mac-control-radius); }
+html.aip-macos .toolbar > .center.tools button.active {
+  background-color: var(--material-button, ButtonFace);
+  box-shadow: var(--aip-mac-elevation);
+}
+html.aip-macos .toolbar #pageNumber {
+  border: var(--aip-mac-border);
+  border-radius: var(--aip-mac-control-radius);
+  background-color: var(--aip-mac-search);
+}
+html.aip-macos #sidebarContainer { background-color: var(--aip-mac-sidebar); }
+html.aip-macos .view-popup { border-radius: var(--aip-mac-radius); }
+html.aip-macos .aip-selection-actions > .toolbar-button { border-radius: var(--aip-mac-control-radius); }
+
+/* Settings uses Zotero's native navigation and form controls with grouped content surfaces. */
+#zotero-prefs.aip-macos #prefs-outer-container {
+  background-color: var(--aip-mac-chrome);
+  font-family: var(--aip-mac-font);
+}
+#zotero-prefs.aip-macos #prefs-navigation {
+  margin: 8px;
+  padding: 5px;
+  border-radius: var(--aip-mac-radius);
+  background-color: var(--aip-mac-sidebar);
+  box-shadow: inset 0 0 0 1px var(--aip-mac-stroke);
+}
+#zotero-prefs.aip-macos #prefs-navigation > richlistitem {
+  padding: 9px 10px;
+  border-radius: 8px;
+}
+#zotero-prefs.aip-macos #prefs-inner-container {
+  margin-block: 8px;
+  margin-inline-end: 8px;
+  border-radius: var(--aip-mac-radius);
+  background-color: var(--aip-mac-sidebar);
+  box-shadow: inset 0 0 0 1px var(--aip-mac-stroke);
+}
+#zotero-prefs.aip-macos #prefs-search-container {
+  padding-inline: 10px;
+  border-bottom: var(--aip-mac-border);
+  border-start-start-radius: var(--aip-mac-radius);
+  border-start-end-radius: var(--aip-mac-radius);
+  background-color: var(--aip-mac-chrome);
+}
+#zotero-prefs.aip-macos #prefs-search {
+  border: var(--aip-mac-border);
+  border-radius: 8px;
+  background-color: var(--aip-mac-search);
+}
+#zotero-prefs.aip-macos #prefs-content :is(.pane-container > h1, .main-section > h1) { font-weight: 600; }
+#zotero-prefs.aip-macos #aip-pref-root .aip-pref-section {
+  margin: 0 0 12px;
+  padding: 12px 14px 14px;
+  border: var(--aip-mac-border);
+  border-radius: var(--aip-mac-radius);
+  background-color: var(--material-background, Canvas);
+  box-shadow: var(--aip-mac-elevation);
+}
+#zotero-prefs.aip-macos #aip-pref-root h2 { margin-block-start: 0; }
+#zotero-prefs.aip-macos #aip-pref-root :is(input:not([type="checkbox"]), select, textarea, button) {
+  border-radius: var(--aip-mac-control-radius);
+}
