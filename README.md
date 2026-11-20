@@ -1,4 +1,4 @@
-# AiPluginForZotero 1.0.0
+# AiPluginForZotero
 
 Zotero 的右侧栏采用论文对话布局，上方显示多轮问答，下方输入问题，并可在发送按钮旁选择模型。点击“历史会话”可恢复问答，并联动打开对应论文。API、Skill 与阅读参数集中在 **设置 → AiPluginForZotero** 中配置。
 
@@ -12,11 +12,13 @@ macOS 版统一文库、阅读器和设置的外观。文库左侧采用内嵌�
 
 ## 安装或升级
 
-1. 从源码构建 `dist/AiPluginForZotero-1.0.0.xpi`，见[从源码构建](#从源码构建)。
+1. 下载最新发行版的 `.xpi` 安装包，也可以自己构建。[GitHub Releases](https://github.com/Cruysyue/ai-paper-plugin-for-zotero/releases/latest) · [从源码构建](#从源码构建)
 2. 在 Zotero 中打开 **工具 → 插件 → 右上角齿轮 → 从文件安装插件**，选择该文件。
 3. 打开 **设置 → AiPluginForZotero**。macOS 的设置入口位于屏幕顶部的 Zotero 菜单，Windows/Linux 通常位于编辑菜单。
 
-AiPluginForZotero 1.0.0 沿用旧版 AI论文插件的 Zotero 插件 ID。在原来的 Zotero 配置中从文件安装，可继续使用保存的 API、Magpie 模型、阅读设置和会话。从采用旧 Skill 集合的版本首次安装时，插件会备份旧 Skill，再启用《论文精读》。
+AiPluginForZotero 沿用旧版 AI论文插件的 Zotero 插件 ID。在原来的 Zotero 配置中从文件安装，可继续使用保存的 API、Magpie 模型、阅读设置和会话。从采用旧 Skill 集合的版本首次安装时，插件会备份旧 Skill，再启用《论文精读》。
+
+已安装 `1.0.0` 的用户需要覆盖安装一次 `1.0.1` 或更新版本，以接入 GitHub 更新地址。之后，Zotero 在启用插件自动更新时会定期安装更高的兼容版本。可在 **工具 → 插件 → 齿轮 → 检查更新** 主动检查。[Zotero 更新说明](https://www.zotero.org/support/kb/updates_not_detected)
 
 设置页的 Base URL 和 API Key 输入框与各自标签同行，宽度随显示内容调整。「显示／隐藏」位于密钥框右侧。API 参数采用双列排列，同列标签居中对齐，两个控件等宽。论文内容范围与历史上下文字符上限各占半行，两框等宽。Skill 的「新建」「导入」「删除」紧跟选择框，分别使用绿色、金黄色和红色底配白字，名称输入位于同行右侧。空间较窄时字段组按可用宽度换行。长名称可悬停查看完整文字。
 
@@ -202,7 +204,7 @@ PDF 阅读页的顶栏隐藏“朗读”和“阅读模式”按钮。高亮、�
 python3 build.py
 ```
 
-生成的安装包位于 `dist/AiPluginForZotero-1.0.0.xpi`。Windows 下也可用 `py -3 build.py`。
+生成的安装包位于 `dist/AiPluginForZotero-<版本>.xpi`。Windows 下也可用 `py -3 build.py`。
 
 自动化逻辑与存储检查使用 Node.js 自带的测试运行器。
 
@@ -210,7 +212,18 @@ python3 build.py
 node --test tests/*.test.cjs
 ```
 
-此版本通过 XPI 手动安装。清单中的 `ai-paper.invalid` 是更新地址占位符。提供自动更新时，应将它改为自己托管的 HTTPS 更新清单地址。
+## 发布新版本
+
+1. 在 `addon/manifest.json` 提高 `version`，提交并推送。继续使用相同的插件 ID 和 `update_url`。
+2. 给该提交打对应的 `vX.Y.Z` 标签并推送。首次启用自动更新的版本是 `1.0.1`。
+
+   ```sh
+   git tag v1.0.1
+   git push origin v1.0.1
+   ```
+
+3. 在 GitHub 的 **Actions** 确认 **Release Zotero plugin** 成功。工作流会运行测试，以同一个版本构建 `.xpi` 和 `updates.json`，附齐文件后发布 Release。更新清单记录安装包的下载地址、SHA-256 和适用的 Zotero 版本。[Actions](https://github.com/Cruysyue/ai-paper-plugin-for-zotero/actions/workflows/release.yml) · [GitHub Releases](https://github.com/Cruysyue/ai-paper-plugin-for-zotero/releases/latest)
+4. 发布后打开更新清单，确认其中的版本号和下载链接。在装有较早且已接入自动更新版本的 Zotero 中点 **检查更新**，确认插件升级到新版本。[更新清单](https://github.com/Cruysyue/ai-paper-plugin-for-zotero/releases/latest/download/updates.json)
 
 ## 源码结构
 
