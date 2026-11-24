@@ -121,9 +121,9 @@ Magpie 在本机运行时，插件通过它的网关读取已启用的对话模�
 
 ### PDF 内容块快照和粘贴
 
-1. 在 Zotero 的 PDF 阅读页按住 **⌘ Command**，将鼠标移到段落或插图上，等待蓝色框标出内容块。
-2. 保持按住 **⌘**，点击蓝框内任意位置。插件会打开右侧问答栏，把框内画面添加到提问框内，并将光标移到输入区。独立阅读窗口中的快照会添加到主窗口里同一 PDF 的问答栏。
-3. 也可以在提问框中按 **⌘V** 粘贴剪贴板中的文字和图片。文字插入光标处，图片显示为可移除的缩略图。每条问题可添加至多 4 张图片。
+1. 在 Zotero 的 PDF 阅读页按住 **Ctrl**（macOS 为 **⌘ Command**），将鼠标移到段落或插图上，等待蓝色框标出内容块。
+2. 保持按住该键，点击蓝框内任意位置。插件会打开右侧问答栏，把框内画面添加到提问框内，并将光标移到输入区。独立阅读窗口中的快照会添加到主窗口里同一 PDF 的问答栏。
+3. 也可以在提问框中按 **Ctrl+V**（macOS 为 **⌘V**）粘贴剪贴板中的文字和图片。文字插入光标处，图片显示为可移除的缩略图。每条问题可添加至多 4 张图片。
 4. 发送截图或图片时，选择支持图像输入的 OpenAI 兼容 Chat Completions 模型。已发送的图片随问答保存在本机历史记录中，可从历史或工作树重新打开。追问时按当前分支携带近期图片，每次请求最多 4 张，优先携带本次提问的图片。[图像输入接口文档](https://developers.openai.com/api/docs/guides/images-vision?api-mode=chat)
 
 快照、粘贴图片和从文件选择器添加的图片都在卡片上方显示缩略图，下方显示名称。点击卡片查看大图，点击右上角的叉号移除待发送图片。点开历史问答中的图片也可查看大图，按 **Esc** 或点关闭按钮返回对话。
@@ -194,7 +194,7 @@ PDF 阅读页的顶栏隐藏“朗读”和“阅读模式”按钮。高亮、�
 
 ## 从源码构建
 
-插件声明支持 Zotero 7–10。实际运行验证覆盖 macOS 上的 Zotero 10.0.9，对应记录见 `VERIFICATION.md`。Zotero 7–9 的运行验证仍待完成。
+插件声明支持 Zotero 7–10。实际运行验证覆盖 macOS 上的 Zotero 10.0.9 和 Windows 上的 Zotero 10.0.8，范围见 `VERIFICATION.md`。Zotero 7–9 的运行验证仍待完成。
 
 源码使用 Zotero 的 PreferencePanes、PDFWorker、Reader 和条目 API。对话布局挂载到主窗口的侧栏容器。阅读器通过 `renderToolbar` 事件加载工具栏样式。[Zotero 开发文档](https://www.zotero.org/support/dev/zotero_7_for_developers#custom_reader_event_handlers)、[Zotero 10 开发变更](https://www.zotero.org/support/dev/zotero_10_for_developers)
 
