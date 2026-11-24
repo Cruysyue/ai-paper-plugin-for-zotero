@@ -90,9 +90,10 @@ var AIPaperSidebar = class {
       Zotero.launchURL(link.getAttribute("href"));
     });
     this.ui.question.addEventListener("keydown", event => {
-      if (event.isTrusted && event.metaKey && !event.altKey && !event.shiftKey && !event.ctrlKey
-          && event.key.toLowerCase() === "v") this.pasteImageShortcut(event);
-      if (event.key === "Enter" && !event.shiftKey && !event.isComposing && event.keyCode !== 229) {
+      if (event.isComposing || event.keyCode === 229) return;
+      if (event.isTrusted && event.key.toLowerCase() === "v"
+          && this.runtime.core.hasPrimaryModifier(event, Zotero.isMac)) this.pasteImageShortcut(event);
+      if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
         this.send();
       }
@@ -570,7 +571,7 @@ var AIPaperSidebar = class {
   refreshModels() {
     if (this.destroyed) return;
     try {
-      const { mode, model, options } = this.runtime.modelPicker();
+      const { mode, profileID, name, model, options } = this.runtime.modelPicker();
       const placeholder = this.element("option", "", options.length ? "选择模型" : "暂无模型");
       placeholder.value = "";
       placeholder.disabled = true;
@@ -580,8 +581,9 @@ var AIPaperSidebar = class {
         return option;
       }));
       this.modelMode = mode;
+      this.modelProfileID = profileID;
       this.ui.model.value = model;
-      this.ui.model.title = this.ui.model.selectedOptions[0]?.textContent || "";
+      this.ui.model.title = [name, this.ui.model.selectedOptions[0]?.textContent].filter(Boolean).join(" · ");
       this.sizeModelPicker();
       this.updateControls();
     }
@@ -600,7 +602,7 @@ var AIPaperSidebar = class {
   async changeModel() {
     const selected = this.ui.model.value;
     if (!selected) return;
-    const operation = this.runtime.selectModel(selected, this.modelMode);
+    const operation = this.runtime.selectModel(selected, this.modelMode, this.modelProfileID);
     this.modelChange = operation;
     this.updateControls();
     try {
@@ -756,7 +758,11 @@ var AIPaperSidebar = class {
     send.addEventListener("click", submit);
     input.addEventListener("keydown", event => {
       if (event.key === "Escape") { event.preventDefault(); cancel.click(); }
-      if (event.key === "Enter" && (event.metaKey || event.ctrlKey) && !event.isComposing) { event.preventDefault(); submit(); }
+      if (event.key === "Enter" && !event.isComposing && event.keyCode !== 229
+          && this.runtime.core.hasPrimaryModifier(event, Zotero.isMac)) {
+        event.preventDefault();
+        submit();
+      }
     });
     actions.append(cancel, send);
     editor.append(input, actions);
